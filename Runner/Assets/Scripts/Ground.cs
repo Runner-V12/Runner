@@ -29,6 +29,9 @@ public class Ground : MonoBehaviour
 
     # region variables
 
+    [SerializeField] private LayerMask m_WhatIsGround;
+    [SerializeField] private Transform m_GroundCheck;
+
     [Header("Sprites Bank")]
     [SerializeField] private GroundSprites Spring;
     [SerializeField] private GroundSprites Autumn;
@@ -44,6 +47,16 @@ public class Ground : MonoBehaviour
     {
         if (Application.isEditor && !Application.isPlaying)
         {
+            //IF THERE IS GROUND UP TRANSFORM TO DIRT
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, 0.2f, m_WhatIsGround);
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                if (colliders[i].gameObject != gameObject)
+                {
+                    spriteSelection.spriteType = SpriteType.Dirt;
+                }
+            }
+
             switch (spriteSelection)
             {
                 //SPRING
