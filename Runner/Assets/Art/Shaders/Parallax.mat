@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Parallax
-  m_Shader: {fileID: -6465566751694194690, guid: 568c44a49cedf914e9a11534a8e3b118,
+  m_Shader: {fileID: -6465566751694194690, guid: 456de325d9fb4654c9b92209f19a0090,
     type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
@@ -20,6 +20,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Tex_Layer1:
+        m_Texture: {fileID: 2800000, guid: 6b1b548d67ce21040b08e00d8bb97f62, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Tex_Layer2:
+        m_Texture: {fileID: 2800000, guid: b10241ef09ea0ef4eb9f23cfa77d3266, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -33,7 +41,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: a8fce3612c5f0f64681e255fdcc73b48, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -49,6 +57,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_453F3A68: 3
+    - Vector1_9CF606CE: 2
+    - Vector1_BD96FC95: 0.5
+    - Vector1_E2EEC5BC: 4
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -71,6 +83,10 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Vector2_5B1BC75D: {r: 0.01, g: 0, b: 0, a: 0}
+    - Vector2_78E5DD04: {r: 0.05, g: 0, b: 0, a: 0}
+    - Vector2_920B6180: {r: 0.03, g: 0, b: 0, a: 0}
+    - Vector2_EB8E5C1F: {r: 0.1, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
