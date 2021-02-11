@@ -76,6 +76,10 @@ public class PlayerController : MonoBehaviour
 		//only control the player if grounded or airControl is turned on
 		if (m_Grounded || m_AirControl)
 		{
+			if (!m_FacingRight)
+                        {
+				move *= -1;
+                        }
 
 			// If crouching
 			if (crouch)
@@ -143,4 +147,21 @@ public class PlayerController : MonoBehaviour
 		theScale.x *= -1;
 		transform.localScale = theScale;
 	}
+
+	public void FaceLeft()
+        {
+		if (m_FacingRight)
+                {
+			Flip();
+                }
+		Debug.Log(m_FacingRight);
+        }
+
+	public void FaceRight()
+        {
+		if (!m_FacingRight)
+                {
+			Flip();
+                }
+        }
 }

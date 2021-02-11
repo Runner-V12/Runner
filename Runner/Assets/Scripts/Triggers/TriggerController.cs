@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 public class TriggerController : MonoBehaviour
 {
         [SerializeField] private GameObject jumpTrigger;
+        [SerializeField] private GameObject faceLeftTrigger;
+        [SerializeField] private GameObject faceRightTrigger;
         private GameObject selected = null;
 
         private void Update()
@@ -44,5 +46,15 @@ public class TriggerController : MonoBehaviour
         public void SelectJumpTrigger()
         {
                 selected = jumpTrigger;
+        }
+
+        public void SelectFaceLeftTrigger()
+        {
+                selected = faceLeftTrigger;
+        }
+
+        public void SelectFaceRightTrigger()
+        {
+                selected = faceRightTrigger;
         }
 }
