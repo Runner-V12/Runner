@@ -5,7 +5,8 @@ using UnityEngine.EventSystems;
 
 public class TriggerController : MonoBehaviour
 {
-        [SerializeField] private GameObject trigger;
+        [SerializeField] private GameObject jumpTrigger;
+        private GameObject selected = null;
 
         private void Update()
         {
@@ -13,22 +14,35 @@ public class TriggerController : MonoBehaviour
                 {
                         if (Input.GetMouseButtonDown(0))
                         {
-                                CreateTrigger(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                                CreateTrigger();
                         } else if (Input.GetMouseButtonDown(1))
                         {
-                                DeleteTrigger(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                                DeleteTrigger();
                         }
                 }
         }
 
-        private void CreateTrigger(Vector3 mousePosition)
+        private void CreateTrigger()
         {
-                mousePosition.z = 0;
-                Instantiate(trigger, mousePosition, Quaternion.identity);
+                if (selected)
+                {
+                        var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                        mousePosition.z = 0;
+                        Instantiate(selected, mousePosition, Quaternion.identity);
+                }
         }
 
-        private void DeleteTrigger(Vector3 mousePosition)
+        private void DeleteTrigger()
         {
+                var hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+                if (hit.collider && hit.collider.CompareTag("Trigger"))
+                {
+                        Destroy(hit.collider.gameObject);
+                }
+        }
 
+        public void SelectJumpTrigger()
+        {
+                selected = jumpTrigger;
         }
 }
