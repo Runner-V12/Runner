@@ -4,14 +4,8 @@ using UnityEngine;
 
 public class FaceRightTrigger : Trigger
 {
-        private PlayerController playerController;
-
-        private void Start()
-        {
-                playerController = player.GetComponent<PlayerController>();
-        }
-        protected override void Action(GameObject collided)
-        {
-                playerController.FaceRight();
-        }
+    protected override void Action(GameObject collided)
+    {
+        collided.GetComponent<PlayerController>().goRight();
+    }
 }
