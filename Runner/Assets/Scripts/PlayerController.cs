@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-	void Update()
+    void Update()
     {
         animator.SetFloat("Speed", Mathf.Abs(speed));
     }
@@ -37,13 +37,20 @@ public class PlayerController : MonoBehaviour
         {
             m_Grounded = true;
             animator.SetBool("Jump", false);
+			animator.SetBool("Fall", false);
         }
         else
         {
             m_Grounded = false;
-            animator.SetBool("Jump", true);
+            if (m_Rigidbody2D.velocity.y > 0)
+            {
+                animator.SetBool("Jump", true);
+            }
+			else if (m_Rigidbody2D.velocity.y < 0) {
+				animator.SetBool("Fall", true);
+			}
         }
-		this.Move(speed * Time.fixedDeltaTime, jump);
+        this.Move(speed * Time.fixedDeltaTime, jump);
         jump = false;
     }
 
@@ -98,9 +105,9 @@ public class PlayerController : MonoBehaviour
         transform.localScale = theScale;
     }
 
-	public void idle()
+    public void idle()
     {
-		Debug.Log("idle");
+        Debug.Log("idle");
         speed = 0f;
     }
 
@@ -124,7 +131,7 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-		Debug.Log("Jump");
+        Debug.Log("Jump");
         jump = true;
     }
 }
