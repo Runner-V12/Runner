@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5384501874347166978}
   - component: {fileID: 1145142393852544853}
   - component: {fileID: -1545201499771509224}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FaceRightTrigger
   m_TagString: Trigger
   m_Icon: {fileID: 0}
