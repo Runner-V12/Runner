@@ -5,56 +5,57 @@ using UnityEngine.EventSystems;
 
 public class TriggerController : MonoBehaviour
 {
-        [SerializeField] private GameObject jumpTrigger;
-        [SerializeField] private GameObject faceLeftTrigger;
-        [SerializeField] private GameObject faceRightTrigger;
-        private GameObject selected = null;
+    [SerializeField] private GameObject jumpTrigger;
+    [SerializeField] private GameObject faceLeftTrigger;
+    [SerializeField] private GameObject faceRightTrigger;
+    private GameObject selected = null;
 
-        private void Update()
+    private void Update()
+    {
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-                if (!EventSystem.current.IsPointerOverGameObject())
-                {
-                        if (Input.GetMouseButtonDown(0))
-                        {
-                                CreateTrigger();
-                        } else if (Input.GetMouseButtonDown(1))
-                        {
-                                DeleteTrigger();
-                        }
-                }
+            if (Input.GetMouseButtonDown(0))
+            {
+                CreateTrigger();
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                DeleteTrigger();
+            }
         }
+    }
 
-        private void CreateTrigger()
+    private void CreateTrigger()
+    {
+        if (selected)
         {
-                if (selected)
-                {
-                        var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                        mousePosition.z = 0;
-                        Instantiate(selected, mousePosition, Quaternion.identity);
-                }
+            var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0;
+            Instantiate(selected, mousePosition, Quaternion.identity);
         }
+    }
 
-        private void DeleteTrigger()
+    private void DeleteTrigger()
+    {
+        var hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        if (hit.collider && hit.collider.CompareTag("Trigger"))
         {
-                var hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-                if (hit.collider && hit.collider.CompareTag("Trigger"))
-                {
-                        Destroy(hit.collider.gameObject);
-                }
+            Destroy(hit.collider.gameObject);
         }
+    }
 
-        public void SelectJumpTrigger()
-        {
-                selected = jumpTrigger;
-        }
+    public void SelectJumpTrigger()
+    {
+        selected = jumpTrigger;
+    }
 
-        public void SelectFaceLeftTrigger()
-        {
-                selected = faceLeftTrigger;
-        }
+    public void SelectFaceLeftTrigger()
+    {
+        selected = faceLeftTrigger;
+    }
 
-        public void SelectFaceRightTrigger()
-        {
-                selected = faceRightTrigger;
-        }
+    public void SelectFaceRightTrigger()
+    {
+        selected = faceRightTrigger;
+    }
 }
