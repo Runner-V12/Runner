@@ -3,8 +3,9 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float runSpeed = 13f;
-    [SerializeField] private float dash = 10f;
+    [SerializeField] private float runSpeed = 13.0f;
+    [SerializeField] private float dashSpeed = 5.0f;
+    [SerializeField] [Range(0, 1)] private float dashTime = 0.5f;
     [SerializeField] private float m_JumpForce = 400f;                          // Amount of force added when the player jumps.
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
     [SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
@@ -13,6 +14,8 @@ public class PlayerController : MonoBehaviour
 
     private float speed = 0f;
     private bool jump = false;
+    private bool dash = false;
+    private float dashBeginTime = 0.0f;
     private bool m_Grounded;            // Whether or not the player is grounded.
     private Rigidbody2D m_Rigidbody2D;
     private bool m_FacingRight = true;  // For determining which way the player is currently facing.
@@ -28,6 +31,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         animator.SetFloat("Speed", Mathf.Abs(speed));
+        animator.SetBool("Dash", dash);
+        if (Time.time - dashBeginTime >= dashTime)
+        {
+            Debug.Log(Time.time - dashBeginTime + " : " + dashTime);
+            
+            dash = false;
+        }
     }
 
     // UpdateFixed is called once each fixed time (used for physics)
@@ -37,7 +47,7 @@ public class PlayerController : MonoBehaviour
         {
             m_Grounded = true;
             animator.SetBool("Jump", false);
-			animator.SetBool("Fall", false);
+            animator.SetBool("Fall", false);
         }
         else
         {
@@ -46,11 +56,23 @@ public class PlayerController : MonoBehaviour
             {
                 animator.SetBool("Jump", true);
             }
-			else if (m_Rigidbody2D.velocity.y < 0) {
-				animator.SetBool("Fall", true);
-			}
+            else if (m_Rigidbody2D.velocity.y < 0)
+            {
+                animator.SetBool("Fall", true);
+            }
         }
-        this.Move(speed * Time.fixedDeltaTime, jump);
+        if (!dash)
+        {
+            m_Rigidbody2D.gravityScale = 3.0f;
+            this.Move(speed * Time.fixedDeltaTime, jump);
+        }
+        else
+        {
+            m_Rigidbody2D.gravityScale = 0.0f;
+            float orientation = (speed / Mathf.Abs(speed));
+            if (orientation == 0) {orientation = 1;}
+            this.Move(dashSpeed * orientation * Time.fixedDeltaTime, jump);
+        }
         jump = false;
     }
 
@@ -61,7 +83,6 @@ public class PlayerController : MonoBehaviour
 
     public void Move(float move, bool jump)
     {
-        // If crouching, check to see if the character can stand up
 
         //only control the player if grounded or airControl is turned on
         if (m_Grounded || m_AirControl)
@@ -133,5 +154,12 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Jump");
         jump = true;
+    }
+
+    public void Dash()
+    {
+        Debug.Log("Dash");
+        dashBeginTime = Time.time;
+        dash = true;
     }
 }
