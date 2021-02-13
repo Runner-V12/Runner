@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    void Update()
+    private void Update()
     {
         animator.SetFloat("Speed", Mathf.Abs(speed));
         animator.SetBool("Dash", dash);
@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
         return Physics2D.Raycast(m_GroundCheck.transform.position, Vector2.down, 0.1f, m_WhatIsGround);
     }
 
-    public void Move(float move, bool jump)
+    private void Move(float move, bool jump)
     {
 
         //only control the player if grounded or airControl is turned on
@@ -125,6 +125,8 @@ public class PlayerController : MonoBehaviour
         theScale.x *= -1;
         transform.localScale = theScale;
     }
+
+    // ACTIONS (TO TRIGGER WITH TRIGGERS)
 
     public void idle()
     {

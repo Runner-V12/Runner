@@ -158,7 +158,7 @@ MonoBehaviour:
   m_AirControl: 1
   m_WhatIsGround:
     serializedVersion: 2
-    m_Bits: 516
+    m_Bits: 512
   m_GroundCheck: {fileID: 8405105397627814637}
 --- !u!50 &8405105398724576519
 Rigidbody2D:
