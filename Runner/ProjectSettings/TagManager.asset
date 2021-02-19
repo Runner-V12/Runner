@@ -9,6 +9,7 @@ TagManager:
   - Background
   - TriggerButton
   - Ground
+  - EditUI
   layers:
   - Default
   - TransparentFX
