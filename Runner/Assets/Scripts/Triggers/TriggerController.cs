@@ -13,6 +13,7 @@ public class TriggerController : MonoBehaviour
     [SerializeField] private GameObject faceLeftTrigger;
     [SerializeField] private GameObject faceRightTrigger;
     private GameObject selected = null;
+    private int selectedLayer = 0;
 
     [SerializeField] private Text limitText;
     [SerializeField] private int limit = 1;
@@ -42,12 +43,12 @@ public class TriggerController : MonoBehaviour
                     if (!hit.collider)
                     {
                         selected.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+                        selected.layer = selectedLayer;
 
                         total += selectedPrice;
                         limitText.text = $"{total} / {limit}";
 
-                        selected = Instantiate(selected);
-                        selected.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+                        CreateShadow(selected);
                     }
                     else
                     {
@@ -95,53 +96,44 @@ public class TriggerController : MonoBehaviour
         }
     }
 
-    public void SelectJumpTrigger()
+    private void CreateShadow(in GameObject trigger)
     {
-        DeleteShadow();
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
         selected = Instantiate(jumpTrigger, mousePosition, Quaternion.identity);
+        selectedLayer = selected.layer;
+        selected.layer = 0;
         selected.GetComponent<EditModeGridSnap>().AllowIngame = true;
         selected.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+    }
+
+    public void SelectJumpTrigger()
+    {
+        DeleteShadow();
+        CreateShadow(jumpTrigger);
     }
 
     public void SelectDashTrigger()
     {
         DeleteShadow();
-        var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0;
-        selected = Instantiate(dashTrigger, mousePosition, Quaternion.identity);
-        selected.GetComponent<EditModeGridSnap>().AllowIngame = true;
-        selected.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+        CreateShadow(dashTrigger);
     }
 
     public void SelectIdleTrigger()
     {
         DeleteShadow();
-        var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0;
-        selected = Instantiate(idleTrigger, mousePosition, Quaternion.identity);
-        selected.GetComponent<EditModeGridSnap>().AllowIngame = true;
-        selected.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+        CreateShadow(idleTrigger);
     }
 
     public void SelectFaceLeftTrigger()
     {
         DeleteShadow();
-        var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0;
-        selected = Instantiate(faceLeftTrigger, mousePosition, Quaternion.identity);
-        selected.GetComponent<EditModeGridSnap>().AllowIngame = true;
-        selected.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+        CreateShadow(faceLeftTrigger);
     }
 
     public void SelectFaceRightTrigger()
     {
         DeleteShadow();
-        var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0;
-        selected = Instantiate(faceRightTrigger, mousePosition, Quaternion.identity);
-        selected.GetComponent<EditModeGridSnap>().AllowIngame = true;
-        selected.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+        CreateShadow(faceRightTrigger);
     }
 }
