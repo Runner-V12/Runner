@@ -34,13 +34,12 @@ public class TriggerController : MonoBehaviour
                     var selectedPrice = selected.GetComponent<Trigger>().price;
                     if (total + selectedPrice > limit)
                     {
-                        Destroy(selected);
-                        selected = null;
+                        DeleteShadow();
                         return;
                     }
 
-                    var hit = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 0f, triggerMask);
-                    if (hit.Length <= 1)
+                    var hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 0f, triggerMask);
+                    if (!hit.collider)
                     {
                         selected.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 
@@ -50,11 +49,14 @@ public class TriggerController : MonoBehaviour
                         selected = Instantiate(selected);
                         selected.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
                     }
+                    else
+                    {
+                        DeleteShadow();
+                    }
                 }
                 else if (Input.GetMouseButtonUp(1))
                 {
-                    Destroy(selected);
-                    selected = null;
+                    DeleteShadow();
                 }
                 else
                 {
@@ -74,6 +76,12 @@ public class TriggerController : MonoBehaviour
         }
     }
 
+    private void DeleteShadow()
+    {
+        Destroy(selected);
+        selected = null;
+    }
+
     private void DeleteTrigger()
     {
         var hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
@@ -89,6 +97,7 @@ public class TriggerController : MonoBehaviour
 
     public void SelectJumpTrigger()
     {
+        DeleteShadow();
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
         selected = Instantiate(jumpTrigger, mousePosition, Quaternion.identity);
@@ -98,6 +107,7 @@ public class TriggerController : MonoBehaviour
 
     public void SelectDashTrigger()
     {
+        DeleteShadow();
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
         selected = Instantiate(dashTrigger, mousePosition, Quaternion.identity);
@@ -107,6 +117,7 @@ public class TriggerController : MonoBehaviour
 
     public void SelectIdleTrigger()
     {
+        DeleteShadow();
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
         selected = Instantiate(idleTrigger, mousePosition, Quaternion.identity);
@@ -116,6 +127,7 @@ public class TriggerController : MonoBehaviour
 
     public void SelectFaceLeftTrigger()
     {
+        DeleteShadow();
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
         selected = Instantiate(faceLeftTrigger, mousePosition, Quaternion.identity);
@@ -125,6 +137,7 @@ public class TriggerController : MonoBehaviour
 
     public void SelectFaceRightTrigger()
     {
+        DeleteShadow();
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
         selected = Instantiate(faceRightTrigger, mousePosition, Quaternion.identity);
