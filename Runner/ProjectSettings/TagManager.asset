@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Trigger
+  - PlayerStart
+  - Background
+  - TriggerButton
+  - Ground
   layers:
   - Default
   - TransparentFX

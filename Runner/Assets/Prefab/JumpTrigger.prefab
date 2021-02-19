@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5322651994045414622}
   - component: {fileID: 5322651994045414623}
   - component: {fileID: 5322651994045414620}
+  - component: {fileID: 3485403223751809374}
   m_Layer: 10
   m_Name: JumpTrigger
   m_TagString: Trigger
@@ -35,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -1.2217901, y: 4.8404665}
   m_SizeDelta: {x: 1.28, y: 1.28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &5322651994045414622
@@ -126,5 +127,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42326e07b912ba84999e1124be480b0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  jumpForce: 3.5
+--- !u!114 &3485403223751809374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5322651994045414621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 664172092b97a4b7d989353ed883f117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snapValue: 1.28
+  depth: 0

@@ -6,9 +6,11 @@ public class EditModeGridSnap : MonoBehaviour
     public float snapValue = 1.28f;
     public float depth = 0;
 
+    public bool AllowIngame = false;
+
     void Update()
     {
-        if (Application.isEditor && !Application.isPlaying)
+        if (Application.isEditor && (!Application.isPlaying || AllowIngame))
         {
 
             float snapInverse = 1 / snapValue;

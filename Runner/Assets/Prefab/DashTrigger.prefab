@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9148713120270771961}
   - component: {fileID: 1264025509951767181}
   - component: {fileID: 6601086030067496801}
+  - component: {fileID: 6629957437761747395}
   m_Layer: 10
   m_Name: DashTrigger
   m_TagString: Trigger
@@ -121,3 +122,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ee81c565a07d428898891588485de1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6629957437761747395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8079958186123466572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 664172092b97a4b7d989353ed883f117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snapValue: 1.28
+  depth: 0
+  AllowIngame: 0

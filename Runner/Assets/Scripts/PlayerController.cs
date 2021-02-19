@@ -34,10 +34,12 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Dash", dash);
         if (Time.time - dashBeginTime >= dashTime)
         {
-            Debug.Log(Time.time - dashBeginTime + " : " + dashTime);
-            
             dash = false;
         }
+        if (speed != 0f)
+            GameObject.FindGameObjectWithTag("Background").GetComponent<SpriteRenderer>().material.SetFloat("Vector1_BD96FC95",0.2f);
+        else
+            GameObject.FindGameObjectWithTag("Background").GetComponent<SpriteRenderer>().material.SetFloat("Vector1_BD96FC95",0f);
     }
 
     // UpdateFixed is called once each fixed time (used for physics)
@@ -70,7 +72,7 @@ public class PlayerController : MonoBehaviour
         {
             m_Rigidbody2D.gravityScale = 0.0f;
             float orientation = (speed / Mathf.Abs(speed));
-            if (orientation == 0) {orientation = 1;}
+            if (orientation == 0) { orientation = 1; }
             this.Move(dashSpeed * orientation * Time.fixedDeltaTime, jump);
         }
         jump = false;
@@ -90,8 +92,14 @@ public class PlayerController : MonoBehaviour
             // Move the character by finding the target velocity
             Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
             // And then smoothing it out and applying it to the character
-            m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
-
+            try
+            {
+                m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);    
+            }
+            catch (System.Exception)
+            {
+            }
+            
             // If the input is moving the player right and the player is facing left...
             if (move > 0 && !m_FacingRight)
             {
@@ -128,15 +136,25 @@ public class PlayerController : MonoBehaviour
 
     // ACTIONS (TO TRIGGER WITH TRIGGERS)
 
+    public void reset()
+    {
+        speed = 0f;
+        if (!m_FacingRight)
+        {
+            Vector3 theScale = transform.localScale;
+            theScale.x *= -1;
+            transform.localScale = theScale;
+            m_FacingRight = !m_FacingRight;
+        }
+    }
+
     public void idle()
     {
-        Debug.Log("idle");
         speed = 0f;
     }
 
     public void goRight()
     {
-        Debug.Log("right");
         if (speed <= 0)
         {
             speed = runSpeed;
@@ -145,7 +163,6 @@ public class PlayerController : MonoBehaviour
 
     public void goLeft()
     {
-        Debug.Log("left");
         if (speed >= 0)
         {
             speed = -runSpeed;
@@ -154,13 +171,11 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-        Debug.Log("Jump");
         jump = true;
     }
 
     public void Dash()
     {
-        Debug.Log("Dash");
         dashBeginTime = Time.time;
         dash = true;
     }
