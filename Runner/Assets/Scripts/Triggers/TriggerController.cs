@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class TriggerController : MonoBehaviour
 {
@@ -13,6 +14,14 @@ public class TriggerController : MonoBehaviour
     [SerializeField] private GameObject faceRightTrigger;
     private GameObject selected = null;
 
+    [SerializeField] private Text limitText;
+    [SerializeField] private int limit = 1;
+    private int total = 0;
+
+    private void Start()
+    {
+        limitText.text = $"0 / {limit}";                
+    }
 
     private void Update()
     {
@@ -20,14 +29,32 @@ public class TriggerController : MonoBehaviour
         {
             if (selected)
             {
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonUp(0))
                 {
+                    var selectedPrice = selected.GetComponent<Trigger>().price;
+                    if (total + selectedPrice > limit)
+                    {
+                        Destroy(selected);
+                        selected = null;
+                        return;
+                    }
+
                     var hit = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 0f, triggerMask);
                     if (hit.Length <= 1)
                     {
                         selected.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-                        selected = null;
+
+                        total += selectedPrice;
+                        limitText.text = $"{total} / {limit}";
+
+                        selected = Instantiate(selected);
+                        selected.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
                     }
+                }
+                else if (Input.GetMouseButtonUp(1))
+                {
+                    Destroy(selected);
+                    selected = null;
                 }
                 else
                 {
@@ -39,7 +66,7 @@ public class TriggerController : MonoBehaviour
             }
             else
             {
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
                 {
                     DeleteTrigger();
                 }
@@ -53,7 +80,10 @@ public class TriggerController : MonoBehaviour
 
         if (hit.collider && hit.collider.CompareTag("Trigger"))
         {
-            Destroy(hit.collider.gameObject);
+            var trigger = hit.collider.gameObject;
+            total -= trigger.GetComponent<Trigger>().price;
+            limitText.text = $"{total} / {limit}";
+            Destroy(trigger);
         }
     }
 

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public abstract class Trigger : MonoBehaviour
 {
+    [SerializeField] public int price = 1;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Action(collision.gameObject);
