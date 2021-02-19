@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     // [SerializeField] private string playingText = "Pause";
 
     private GameObject player;
+    private Vector3 playerStartPosition;
     private GameObject playerStart;
     private GameObject mainCamera;
     private GameObject background;
@@ -21,7 +22,7 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        playerStart = GameObject.FindGameObjectWithTag("PlayerStart");
+        playerStartPosition = player.transform.position;
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         background = GameObject.FindGameObjectWithTag("Background");
         EditUI = GameObject.FindGameObjectsWithTag("EditUI");
@@ -55,7 +56,7 @@ public class GameController : MonoBehaviour
         {
             //background.GetComponent<SpriteRenderer>().material.SetFloat("Vector1_BD96FC95",0f);
             player.GetComponent<PlayerController>().reset();
-            player.transform.position = new Vector3(playerStart.transform.position.x,playerStart.transform.position.y,playerStart.transform.position.z);
+            player.transform.position = playerStartPosition;
             player.GetComponent<Rigidbody2D>().simulated = false;
             foreach (GameObject item in GameObject.FindGameObjectsWithTag("Trigger"))
             {
