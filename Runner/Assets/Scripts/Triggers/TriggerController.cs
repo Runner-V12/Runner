@@ -100,7 +100,7 @@ public class TriggerController : MonoBehaviour
     {
         var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
-        selected = Instantiate(jumpTrigger, mousePosition, Quaternion.identity);
+        selected = Instantiate(trigger, mousePosition, Quaternion.identity);
         selectedLayer = selected.layer;
         selected.layer = 0;
         selected.GetComponent<EditModeGridSnap>().AllowIngame = true;
