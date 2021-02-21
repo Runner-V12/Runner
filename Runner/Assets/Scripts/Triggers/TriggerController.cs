@@ -21,6 +21,9 @@ public class TriggerController : MonoBehaviour
     [SerializeField] private int limit = 1;
     private int total = 0;
 
+    [SerializeField] private float shakeDuration = 0.25f;
+    [SerializeField] private float shakeIntensity = 0.25f;
+
     private void Start()
     {
         limitText.text = $"0 / {limit}";
@@ -53,6 +56,7 @@ public class TriggerController : MonoBehaviour
                         if (limit == total)
                         {
                             limitText.color = limitReachedColor;
+                            CameraShake.Shake(shakeDuration, shakeIntensity);
                         }
 
                         CreateShadow(selected);

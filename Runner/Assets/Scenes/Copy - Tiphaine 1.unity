@@ -4936,7 +4936,10 @@ MonoBehaviour:
   faceRightTrigger: {fileID: 5384501874347166979, guid: 20b2acd3fcc06f74886f2aa8b56ab98f,
     type: 3}
   limitText: {fileID: 2039401915}
+  limitReachedColor: {r: 0, g: 0, b: 0, a: 0}
   limit: 10
+  shakeDuration: 0.25
+  shakeIntensity: 0.25
 --- !u!114 &1027442973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5848,6 +5851,7 @@ GameObject:
   - component: {fileID: 1348479968}
   - component: {fileID: 1348479971}
   - component: {fileID: 1348479972}
+  - component: {fileID: 1348479973}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5967,6 +5971,18 @@ MonoBehaviour:
   target: {fileID: 867701538}
   smoothSpeed: 1
   offset: {x: 0, y: 0, z: 0}
+--- !u!114 &1348479973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348479967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99aa72408e3fcad41bd6c3626608a406, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1386334570 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5141601044358214125, guid: 551517f4b988b41f5b5425a1165e3a42,
