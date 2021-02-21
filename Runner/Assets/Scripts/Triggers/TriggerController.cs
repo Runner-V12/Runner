@@ -16,12 +16,16 @@ public class TriggerController : MonoBehaviour
     private int selectedLayer = 0;
 
     [SerializeField] private Text limitText;
+    private Color normalLimitColor;
+    [SerializeField] private Color limitReachedColor;
     [SerializeField] private int limit = 1;
     private int total = 0;
 
     private void Start()
     {
-        limitText.text = $"0 / {limit}";                
+        limitText.text = $"0 / {limit}";
+        normalLimitColor = limitText.color;
+        Debug.Log(limitReachedColor);
     }
 
     private void Update()
@@ -47,6 +51,10 @@ public class TriggerController : MonoBehaviour
 
                         total += selectedPrice;
                         limitText.text = $"{total} / {limit}";
+                        if (limit == total)
+                        {
+                            limitText.color = limitReachedColor;
+                        }
 
                         CreateShadow(selected);
                     }
@@ -92,6 +100,7 @@ public class TriggerController : MonoBehaviour
             var trigger = hit.collider.gameObject;
             total -= trigger.GetComponent<Trigger>().price;
             limitText.text = $"{total} / {limit}";
+            limitText.color = normalLimitColor;
             Destroy(trigger);
         }
     }

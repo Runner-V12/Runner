@@ -4936,6 +4936,7 @@ MonoBehaviour:
   faceRightTrigger: {fileID: 5384501874347166979, guid: 20b2acd3fcc06f74886f2aa8b56ab98f,
     type: 3}
   limitText: {fileID: 2039401915}
+  limitReachedColor: {r: 0.6392157, g: 0.17355074, b: 0, a: 1}
   limit: 10
 --- !u!114 &1027442973
 MonoBehaviour:
