@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class TriggerController : MonoBehaviour
 {
     [SerializeField] private LayerMask triggerMask;
+    [SerializeField] private GraphicRaycaster graphicRaycaster;
+
     [SerializeField] private GameObject jumpTrigger;
     [SerializeField] private GameObject dashTrigger;
     [SerializeField] private GameObject idleTrigger;
@@ -17,7 +19,7 @@ public class TriggerController : MonoBehaviour
 
     [SerializeField] private Text limitText;
     private Color normalLimitColor;
-    [SerializeField] private Color limitReachedColor;
+    [SerializeField] private Color limitReachedColor = new Color(135, 43 , 0);
     [SerializeField] private int limit = 1;
     private int total = 0;
 
@@ -32,20 +34,38 @@ public class TriggerController : MonoBehaviour
 
     private void Update()
     {
-        if (!EventSystem.current.IsPointerOverGameObject())
+        if (selected)
         {
-            if (selected)
-            {
-                if (Input.GetMouseButtonUp(0))
-                {
-                    var selectedPrice = selected.GetComponent<Trigger>().price;
-                    if (total + selectedPrice > limit)
-                    {
-                        DeleteShadow();
-                        return;
-                    }
+            var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0;
+            selected.transform.position = mousePosition;
 
+            if (Input.GetMouseButtonUp(0))
+            {
+                var selectedPrice = selected.GetComponent<Trigger>().price;
+                if (total + selectedPrice > limit)
+                {
+                    DeleteShadow();
+                    return;
+                }
+
+                Debug.Log(EventSystem.current.IsPointerOverGameObject());
+                var pointerData = new PointerEventData(EventSystem.current)
+                {
+                    position = Input.mousePosition
+                };
+                var results = new List<RaycastResult>();
+                //EventSystem.current.RaycastAll(pointerData, results);
+                graphicRaycaster.Raycast(pointerData, results);
+                results.ForEach((result) => {
+                    Debug.Log($"Result graphicRaycaster : {result}");
+                    Debug.Log(triggerMask == (triggerMask | (1 << result.gameObject.layer)));
+                });
+
+                if (!EventSystem.current.IsPointerOverGameObject() || (results.Count == 0 || (triggerMask == (triggerMask | (1 << results[0].gameObject.layer)))))
+                {
                     var hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 0f, triggerMask);
+                    Debug.Log($"Collider {hit.collider?.ToString()}");
                     if (!hit.collider)
                     {
                         selected.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
@@ -66,25 +86,15 @@ public class TriggerController : MonoBehaviour
                         DeleteShadow();
                     }
                 }
-                else if (Input.GetMouseButtonUp(1))
-                {
-                    DeleteShadow();
-                }
-                else
-                {
-                    var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    mousePosition.z = 0;
-                    selected.transform.position = mousePosition;
-                    selected.GetComponent<SpriteRenderer>().sortingOrder = 1;
-                }
             }
-            else
+            else if (Input.GetMouseButtonUp(1))
             {
-                if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
-                {
-                    DeleteTrigger();
-                }
+                DeleteShadow();
             }
+        }
+        else if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        {
+            DeleteTrigger();
         }
     }
 
@@ -117,6 +127,7 @@ public class TriggerController : MonoBehaviour
         selected.layer = 0;
         selected.GetComponent<EditModeGridSnap>().AllowIngame = true;
         selected.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+        selected.GetComponent<SpriteRenderer>().sortingOrder = 1;
     }
 
     public void SelectJumpTrigger()

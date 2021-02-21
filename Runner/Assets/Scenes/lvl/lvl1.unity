@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -6007,42 +6007,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 922689371}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &794214717
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 794214718}
-  m_Layer: 5
-  m_Name: ToogleCanvas
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &794214718
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 794214717}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1540639433}
-  m_Father: {fileID: 1840082015}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &802689038
 GameObject:
   m_ObjectHideFlags: 0
@@ -7565,6 +7529,7 @@ MonoBehaviour:
   triggerMask:
     serializedVersion: 2
     m_Bits: 1536
+  graphicRaycaster: {fileID: 1840082012}
   jumpTrigger: {fileID: 5322651994045414621, guid: c9eb140a053944f4bbd9d30f621865a1,
     type: 3}
   dashTrigger: {fileID: 8079958186123466572, guid: 545a2517e1cbe42f388f851d64c59d09,
@@ -7576,7 +7541,10 @@ MonoBehaviour:
   faceRightTrigger: {fileID: 5384501874347166979, guid: 20b2acd3fcc06f74886f2aa8b56ab98f,
     type: 3}
   limitText: {fileID: 1305006303}
+  limitReachedColor: {r: 0.5754717, g: 0.12442375, b: 0, a: 1}
   limit: 10
+  shakeDuration: 0.25
+  shakeIntensity: 0.25
 --- !u!114 &1027442973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9092,6 +9060,7 @@ GameObject:
   - component: {fileID: 1348479968}
   - component: {fileID: 1348479971}
   - component: {fileID: 1348479972}
+  - component: {fileID: 1348479973}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -9211,6 +9180,18 @@ MonoBehaviour:
   target: {fileID: 867701538}
   smoothSpeed: 1
   offset: {x: 0, y: 0, z: 0}
+--- !u!114 &1348479973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348479967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99aa72408e3fcad41bd6c3626608a406, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1366699597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10179,8 +10160,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
-  m_Father: {fileID: 794214718}
-  m_RootOrder: 0
+  m_Father: {fileID: 1840082015}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -12147,7 +12128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
+  m_BlockingObjects: 3
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -12208,7 +12189,7 @@ RectTransform:
   - {fileID: 1170838693}
   - {fileID: 157745537}
   - {fileID: 426766388}
-  - {fileID: 794214718}
+  - {fileID: 1540639433}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
