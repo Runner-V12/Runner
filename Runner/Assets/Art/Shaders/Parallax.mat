@@ -101,6 +101,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     - blueprint: 0
+    - noP: 1
     m_Colors:
     - Vector2_5B1BC75D: {r: 0.01, g: 0, b: 0, a: 0}
     - Vector2_78E5DD04: {r: 0.05, g: 0, b: 0, a: 0}
