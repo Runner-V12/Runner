@@ -127,6 +127,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42326e07b912ba84999e1124be480b0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  price: 1
+  jumpParticles: {fileID: 4468651293276109616, guid: dbc1db6a585db594c95fcb0b20ceec4a,
+    type: 3}
 --- !u!114 &3485403223751809374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,3 +144,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snapValue: 1.28
   depth: 0
+  AllowIngame: 0
