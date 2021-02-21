@@ -49,23 +49,15 @@ public class TriggerController : MonoBehaviour
                     return;
                 }
 
-                Debug.Log(EventSystem.current.IsPointerOverGameObject());
                 var pointerData = new PointerEventData(EventSystem.current)
                 {
                     position = Input.mousePosition
                 };
                 var results = new List<RaycastResult>();
-                //EventSystem.current.RaycastAll(pointerData, results);
                 graphicRaycaster.Raycast(pointerData, results);
-                results.ForEach((result) => {
-                    Debug.Log($"Result graphicRaycaster : {result}");
-                    Debug.Log(triggerMask == (triggerMask | (1 << result.gameObject.layer)));
-                });
-
                 if (!EventSystem.current.IsPointerOverGameObject() || (results.Count == 0 || (triggerMask == (triggerMask | (1 << results[0].gameObject.layer)))))
                 {
                     var hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, 0f, triggerMask);
-                    Debug.Log($"Collider {hit.collider?.ToString()}");
                     if (!hit.collider)
                     {
                         selected.GetComponent<SpriteRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
