@@ -25,7 +25,6 @@ public class TriggerController : MonoBehaviour
     {
         limitText.text = $"0 / {limit}";
         normalLimitColor = limitText.color;
-        Debug.Log(limitReachedColor);
     }
 
     private void Update()
