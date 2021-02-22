@@ -4654,7 +4654,7 @@ GameObject:
   - component: {fileID: 93841569}
   - component: {fileID: 93841568}
   m_Layer: 0
-  m_Name: Canvas
+  m_Name: CanvasTuto
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51264,7 +51264,7 @@ MonoBehaviour:
   triggerMask:
     serializedVersion: 2
     m_Bits: 1536
-  graphicRaycaster: {fileID: 0}
+  graphicRaycaster: {fileID: 1840082012}
   jumpTrigger: {fileID: 5322651994045414621, guid: c9eb140a053944f4bbd9d30f621865a1,
     type: 3}
   dashTrigger: {fileID: 8079958186123466572, guid: 545a2517e1cbe42f388f851d64c59d09,
