@@ -4781,7 +4781,7 @@ GameObject:
   - component: {fileID: 294509148}
   m_Layer: 0
   m_Name: tutoIndic (1)
-  m_TagString: Untagged
+  m_TagString: TriggerButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6075,7 +6075,7 @@ GameObject:
   - component: {fileID: 343916468}
   m_Layer: 0
   m_Name: Text (TMP) (1)
-  m_TagString: Untagged
+  m_TagString: TriggerButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13717,7 +13717,7 @@ GameObject:
   - component: {fileID: 802689040}
   m_Layer: 0
   m_Name: Text (TMP)
-  m_TagString: Untagged
+  m_TagString: TriggerButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24717,7 +24717,7 @@ GameObject:
   - component: {fileID: 1453558030}
   m_Layer: 0
   m_Name: tutoIndic (2)
-  m_TagString: Untagged
+  m_TagString: TriggerButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25434,7 +25434,7 @@ GameObject:
   - component: {fileID: 1509419892}
   m_Layer: 0
   m_Name: tutoIndic (3)
-  m_TagString: Untagged
+  m_TagString: TriggerButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
