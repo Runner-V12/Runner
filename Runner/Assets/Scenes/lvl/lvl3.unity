@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -34534,7 +34534,7 @@ GameObject:
   - component: {fileID: 669921096}
   m_Layer: 5
   m_Name: Text (TMP)
-  m_TagString: Untagged
+  m_TagString: TriggerButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51264,6 +51264,7 @@ MonoBehaviour:
   triggerMask:
     serializedVersion: 2
     m_Bits: 1536
+  graphicRaycaster: {fileID: 0}
   jumpTrigger: {fileID: 5322651994045414621, guid: c9eb140a053944f4bbd9d30f621865a1,
     type: 3}
   dashTrigger: {fileID: 8079958186123466572, guid: 545a2517e1cbe42f388f851d64c59d09,
@@ -51275,7 +51276,10 @@ MonoBehaviour:
   faceRightTrigger: {fileID: 5384501874347166979, guid: 20b2acd3fcc06f74886f2aa8b56ab98f,
     type: 3}
   limitText: {fileID: 1305006303}
+  limitReachedColor: {r: 135, g: 43, b: 0, a: 1}
   limit: 10
+  shakeDuration: 0.25
+  shakeIntensity: 0.25
 --- !u!114 &1027442973
 MonoBehaviour:
   m_ObjectHideFlags: 0
