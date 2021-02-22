@@ -45,7 +45,7 @@ public class GameController : MonoBehaviour
             {
                 if (item.TryGetComponent<Button>(out Button button)) button.enabled = false;
                 if (item.TryGetComponent<Image>(out Image image)) image.enabled = false;
-                
+                if (item.TryGetComponent<TextMeshProUGUI>(out TextMeshProUGUI text)) text.enabled = false;
                     
             }
             foreach (GameObject item in EditUI)
@@ -69,7 +69,7 @@ public class GameController : MonoBehaviour
             {
                 if (item.TryGetComponent<Button>(out Button button)) button.enabled = true;
                 if (item.TryGetComponent<Image>(out Image image)) image.enabled = true;
-                
+                if (item.TryGetComponent<TextMeshProUGUI>(out TextMeshProUGUI text)) text.enabled = true;
                 
 
             }
