@@ -42,8 +42,9 @@ public class GameController : MonoBehaviour
             }
             foreach (GameObject item in GameObject.FindGameObjectsWithTag("TriggerButton"))
             {
-                item.GetComponent<Button>().enabled = false;
-                item.GetComponent<Image>().enabled = false;
+                if (item.TryGetComponent<Button>(out Button button)) button.enabled = false;
+                if (item.TryGetComponent<Image>(out Image image)) image.enabled = false;
+                    
             }
             foreach (GameObject item in EditUI)
             {
@@ -64,8 +65,9 @@ public class GameController : MonoBehaviour
             }
             foreach (GameObject item in GameObject.FindGameObjectsWithTag("TriggerButton"))
             {
-                item.GetComponent<Button>().enabled = true;
-                item.GetComponent<Image>().enabled = true;
+                if (item.TryGetComponent<Button>(out Button button)) button.enabled = true;
+                if (item.TryGetComponent<Image>(out Image image)) image.enabled = true;
+
             }
             foreach (GameObject item in EditUI)
             {
