@@ -23113,6 +23113,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 996eaa20e8dc5411cba711acdca16e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  landscapeMinAspectRatio: {x: 3, y: 2}
+  landscapeMaxAspectRatio: {x: 16, y: 9}
+  portraitMinAspectRatio: {x: 9, y: 16}
+  portraitMaxAspectRatio: {x: 2, y: 3}
 --- !u!4 &1352924294 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5141601044358214125, guid: 551517f4b988b41f5b5425a1165e3a42,

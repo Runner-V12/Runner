@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!200 &20000000
+ShaderVariantCollection:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: NewShaderVariants
+  m_Shaders:
+  - first: {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: ETC1_EXTERNAL_ALPHA LIGHTPROBE_SH
+        passType: 0
+  - first: {fileID: -6465566751694194690, guid: 456de325d9fb4654c9b92209f19a0090,
+      type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+      - keywords: ETC1_EXTERNAL_ALPHA LIGHTPROBE_SH
+        passType: 0
+      - keywords: 
+        passType: 8
+      - keywords: ETC1_EXTERNAL_ALPHA
+        passType: 8
+  - first: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
+    second:
+      variants:
+      - keywords: LIGHTPROBE_SH
+        passType: 0
+  - first: {fileID: -6465566751694194690, guid: da25724e0ff0f274cb07d66466f4ba4a,
+      type: 3}
+    second:
+      variants:
+      - keywords: ETC1_EXTERNAL_ALPHA LIGHTPROBE_SH
+        passType: 0
+      - keywords: UNITY_HDR_ON _DEPTH_NO_MSAA
+        passType: 0
+      - keywords: ETC1_EXTERNAL_ALPHA LIGHTPROBE_SH _DEPTH_NO_MSAA
+        passType: 0
+      - keywords: ETC1_EXTERNAL_ALPHA LIGHTPROBE_SH UNITY_HDR_ON _DEPTH_NO_MSAA
+        passType: 0
+      - keywords: ETC1_EXTERNAL_ALPHA
+        passType: 8
+  - first: {fileID: 4800000, guid: fe393ace9b354375a9cb14cdbbc28be4, type: 3}
+    second:
+      variants:
+      - keywords: LIGHTPROBE_SH UNITY_HDR_ON _ADDITIONAL_LIGHTS
+        passType: 0

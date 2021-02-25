@@ -1,87 +1,99 @@
 
 using UnityEngine;
-using System.Collections.Generic;
- 
-/// <summary>
-/// Skrypt odpowiada za usatwienie rozdzielczosci kemerze
-/// </summary>
 public class CameraResolution : MonoBehaviour
 {
- 
- 
-    #region Pola
-    private int ScreenSizeX = 0;
-    private int ScreenSizeY = 0;
-    #endregion
- 
-    #region metody
- 
-    #region rescale camera
-    private void RescaleCamera()
-    {
- 
-        if (Screen.width == ScreenSizeX && Screen.height == ScreenSizeY) return;
- 
-        float targetaspect = 16.0f / 9.0f;
-        float windowaspect = (float)Screen.width / (float)Screen.height;
-        float scaleheight = windowaspect / targetaspect;
-        Camera camera = GetComponent<Camera>();
- 
-        if (scaleheight < 1.0f)
-        {
-            Rect rect = camera.rect;
- 
-            rect.width = 1.0f;
-            rect.height = scaleheight;
-            rect.x = 0;
-            rect.y = (1.0f - scaleheight) / 2.0f;
- 
-             camera.rect = rect;
-        }
-        else // add pillarbox
-        {
-            float scalewidth = 1.0f / scaleheight;
- 
-            Rect rect = camera.rect;
- 
-            rect.width = scalewidth;
-            rect.height = 1.0f;
-            rect.x = (1.0f - scalewidth) / 2.0f;
-            rect.y = 0;
- 
-             camera.rect = rect;
-        }
- 
-        ScreenSizeX = Screen.width;
-        ScreenSizeY = Screen.height;
-    }
-    #endregion
- 
-    #endregion
- 
-    #region metody unity
- 
-    void OnPreCull()
-    {
-        if (Application.isEditor) return;
-        Rect wp = Camera.main.rect;
-        Rect nr = new Rect(0, 0, 1, 1);
- 
-        Camera.main.rect = nr;
-        GL.Clear(true, true, Color.black);
-       
-        Camera.main.rect = wp;
- 
-    }
- 
-    // Use this for initialization
-    void Start () {
-        RescaleCamera();
-    }
-   
-    // Update is called once per frame
-    void Update () {
-        RescaleCamera();
-    }
-    #endregion
+ 	public Vector2 landscapeMinAspectRatio	= new Vector2(3.0f, 2.0f);
+	public Vector2 landscapeMaxAspectRatio	= new Vector2(16.0f, 9.0f);
+	public Vector2 portraitMinAspectRatio	= new Vector2(9.0f, 16.0f);
+	public Vector2 portraitMaxAspectRatio	= new Vector2(2.0f, 3.0f);
+
+	Camera cam = null;
+	int screenWidth							= 0;		// 0 forces camAspect to be set correctly on Awake.
+	int screenHeight						= 0;
+
+	int effectiveScreenWidth				= 0;
+	int effectiveScreenHeight				= 0;
+
+	float camAspect		= 1.0f;
+
+	void Awake()
+	{
+		cam = GetComponent<Camera>();
+		Update();
+	}
+
+	void OnValidate()
+	{
+		// Just to avoid divide by zero and non-zero cam aspect ratios.
+		if (landscapeMinAspectRatio.x < 0.01f)	landscapeMinAspectRatio.x = 0.01f;
+		if (landscapeMinAspectRatio.y < 0.01f)	landscapeMinAspectRatio.y = 0.01f;
+		if (landscapeMaxAspectRatio.x < 0.01f)	landscapeMaxAspectRatio.x = 0.01f;
+		if (landscapeMaxAspectRatio.y < 0.01f)	landscapeMaxAspectRatio.y = 0.01f;
+
+		if (portraitMinAspectRatio.x < 0.01f)	portraitMinAspectRatio.x = 0.01f;
+		if (portraitMinAspectRatio.y < 0.01f)	portraitMinAspectRatio.y = 0.01f;
+		if (portraitMaxAspectRatio.x < 0.01f)	portraitMaxAspectRatio.x = 0.01f;
+		if (portraitMaxAspectRatio.y < 0.01f)	portraitMaxAspectRatio.y = 0.01f;
+	}
+
+	public float GetAspect()
+	{
+		return camAspect;
+	}
+
+	public float GetScreenWidth()
+	{
+		return effectiveScreenWidth;
+	}
+
+	public float GetScreenHeight()
+	{
+		return effectiveScreenHeight;
+	}
+
+	void Update()
+	{
+		if ((screenWidth != Screen.width) || (screenHeight != Screen.height))
+		{
+			screenWidth		= Screen.width;
+			screenHeight	= Screen.height;
+			if ((screenWidth > 0) && (screenHeight > 0))
+				OnAspectChanged();
+		}
+	}
+
+	void ComputeCameraAspect(float screenAspect)
+	{
+		bool landscape = screenAspect > 1.0f;
+		if (landscape)
+		{
+			float landscapeMinAspect = landscapeMinAspectRatio.x / landscapeMinAspectRatio.y;
+			float landscapeMaxAspect = landscapeMaxAspectRatio.x / landscapeMaxAspectRatio.y;
+			camAspect = Mathf.Clamp(screenAspect, landscapeMinAspect, landscapeMaxAspect);
+		}
+		else
+		{
+			float portraitMinAspect = portraitMinAspectRatio.x / portraitMinAspectRatio.y;
+			float portraitMaxAspect = portraitMaxAspectRatio.x / portraitMaxAspectRatio.y;
+			camAspect = Mathf.Clamp(screenAspect, portraitMinAspect, portraitMaxAspect);
+		}
+	}
+
+	void OnAspectChanged()
+	{
+		float screenAspect = (float)screenWidth / (float)screenHeight;
+		ComputeCameraAspect(screenAspect);
+
+		// If vertBars is false there will be unused horizontal space.
+		bool vertBars			= screenAspect > camAspect;
+		Rect rect				= cam.rect;
+		float camWH				= vertBars ? camAspect/screenAspect : screenAspect/camAspect;
+		rect.width				= vertBars ? camWH : 1.0f;
+		rect.height				= vertBars ? 1.0f : camWH;
+		rect.x					= vertBars ? (1.0f-camWH)*0.5f : 0.0f;
+		rect.y					= vertBars ? 0.0f : (1.0f-camWH)*0.5f;
+		effectiveScreenWidth	= (int)(rect.width * (float)screenWidth);
+		effectiveScreenHeight	= (int)(rect.height * (float)screenHeight);
+		cam.rect				= rect;
+	}
 }
