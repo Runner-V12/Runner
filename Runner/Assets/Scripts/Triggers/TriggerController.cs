@@ -46,6 +46,7 @@ public class TriggerController : MonoBehaviour
                 if (total + selectedPrice > limit)
                 {
                     DeleteShadow();
+                    CameraShake.Shake(shakeDuration, shakeIntensity);
                     return;
                 }
 
@@ -68,7 +69,6 @@ public class TriggerController : MonoBehaviour
                         if (limit == total)
                         {
                             limitText.color = limitReachedColor;
-                            CameraShake.Shake(shakeDuration, shakeIntensity);
                         }
 
                         CreateShadow(selected);
