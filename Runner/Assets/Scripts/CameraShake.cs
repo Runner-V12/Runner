@@ -10,7 +10,6 @@ public class CameraShake : MonoBehaviour
 
     private void Start()
     {
-        originalPosition = transform.localPosition;
         instance = this;
     }
 
@@ -23,6 +22,7 @@ public class CameraShake : MonoBehaviour
     public IEnumerator shakeImplementation(float duration, float amount)
     {
         float endTime = Time.time + duration;
+        originalPosition = transform.localPosition;
 
         while (Time.time < endTime)
         {
