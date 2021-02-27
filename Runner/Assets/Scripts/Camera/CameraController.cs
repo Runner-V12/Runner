@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour
 
     private GameController gameController;
 
-    void Start()
+    void Awake()
     {
         _camera = GameObject.FindGameObjectWithTag("MainCamera");
         target = _camera.transform.position;
@@ -48,7 +48,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (gameController.editMode)
+        if (GameController.editMode)
         {
             float step = speed * Time.deltaTime;
             _camera.transform.position = Vector3.MoveTowards(_camera.transform.position, target, step);
@@ -81,25 +81,5 @@ public class CameraController : MonoBehaviour
                 GoLeft();
             }
         }
-    }
-
-    private Action<T> Debounce<T>(Action<T> func, int milliseconds = 300)
-    {
-        CancellationTokenSource cancelTokenSource = null;
-
-        return arg =>
-        {
-            cancelTokenSource?.Cancel();
-            cancelTokenSource = new CancellationTokenSource();
-
-            Task.Delay(milliseconds, cancelTokenSource.Token)
-                .ContinueWith(t =>
-                {
-                    if (t.IsCompleted)
-                    {
-                        func(arg);
-                    }
-                }, TaskScheduler.Default);
-        };
     }
 }

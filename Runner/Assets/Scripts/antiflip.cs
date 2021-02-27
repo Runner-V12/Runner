@@ -7,8 +7,8 @@ public class antiflip : MonoBehaviour
     private SpriteRenderer _spriteR;
     private GameObject _Player;
     private Shader _shader;
-    // Start is called before the first frame update
-    void Start()
+
+    void Awake()
     {
         _Player = GameObject.FindGameObjectWithTag("Player");
         _spriteR = GetComponent<SpriteRenderer>();

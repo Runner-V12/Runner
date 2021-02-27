@@ -3,30 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 public class GameController : MonoBehaviour
 {
-    // public bool paused = false;
-    // [SerializeField] private Button pauseButton;
-    // [SerializeField] private string pausedText = "Play";
-    // [SerializeField] private string playingText = "Pause";
-
     private GameObject player;
     private Vector3 playerStartPosition;
     private GameObject playerStart;
     private GameObject mainCamera;
     private GameObject background;
     private GameObject[] EditUI;
-    public bool editMode = false;
+    public static bool editMode = false;
 
-    private void Start()
+    [SerializeField] private GameObject spawnPlayer;
+
+    private GameObject[] triggerButtons;
+
+    private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerStartPosition = player.transform.position;
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         background = GameObject.FindGameObjectWithTag("Background");
         EditUI = GameObject.FindGameObjectsWithTag("EditUI");
+        triggerButtons = GameObject.FindGameObjectsWithTag("TriggerButton");
         ToogleEditing();
     }
 
@@ -41,11 +40,9 @@ public class GameController : MonoBehaviour
             {
                 item.GetComponent<SpriteRenderer>().enabled = false;
             }
-            foreach (GameObject item in GameObject.FindGameObjectsWithTag("TriggerButton"))
+            foreach (var item in triggerButtons)
             {
-                if (item.TryGetComponent<Button>(out Button button)) button.enabled = false;
-                if (item.TryGetComponent<Image>(out Image image)) image.enabled = false;
-                if (item.TryGetComponent<TextMeshProUGUI>(out TextMeshProUGUI text)) text.enabled = false;
+                item.SetActive(false);
 
             }
             foreach (GameObject item in EditUI)
@@ -54,6 +51,8 @@ public class GameController : MonoBehaviour
             }
             mainCamera.transform.position = new Vector3(player.transform.position.x, player.transform.position.y * 2, mainCamera.transform.position.z);
             mainCamera.transform.SetParent(player.transform);
+
+            Instantiate(spawnPlayer);
         }
         else
         {
@@ -65,11 +64,9 @@ public class GameController : MonoBehaviour
             {
                 item.GetComponent<SpriteRenderer>().enabled = true;
             }
-            foreach (GameObject item in GameObject.FindGameObjectsWithTag("TriggerButton"))
+            foreach (var item in triggerButtons)
             {
-                if (item.TryGetComponent<Button>(out Button button)) button.enabled = true;
-                if (item.TryGetComponent<Image>(out Image image)) image.enabled = true;
-                if (item.TryGetComponent<TextMeshProUGUI>(out TextMeshProUGUI text)) text.enabled = true;
+                item.SetActive(true);
 
             }
             foreach (GameObject item in EditUI)
@@ -80,11 +77,6 @@ public class GameController : MonoBehaviour
             mainCamera.transform.parent = null;
         }
         editMode = !editMode;
-    }
-
-    private Vector2 moveobject(Transform source, Transform destination, float speed)
-    {
-        return Vector2.MoveTowards(source.position,destination.position,speed);
     }
 
     public void Restart()

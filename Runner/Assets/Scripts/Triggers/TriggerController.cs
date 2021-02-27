@@ -26,7 +26,7 @@ public class TriggerController : MonoBehaviour
     [SerializeField] private float shakeDuration = 0.25f;
     [SerializeField] private float shakeIntensity = 0.25f;
 
-    private void Start()
+    private void Awake()
     {
         limitText.text = $"0 / {limit}";
         normalLimitColor = limitText.color;

@@ -7,14 +7,21 @@ public class ToogleEditGamePanel : MonoBehaviour
     [SerializeField] private GameController _gameController;
     private float _gravity;
 
+    private Rigidbody2D playerRigidbody;
+
+    private void Awake()
+    {
+        playerRigidbody = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+    }
+
     public void toogle() {
         _gameController.ToogleEditing();
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().simulated = false;
+        playerRigidbody.simulated = false;
     }
 
     public void desactivate() {
         this.gameObject.SetActive(false);
-        if (!_gameController.editMode)
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().simulated = true;
+        if (!GameController.editMode)
+            playerRigidbody.simulated = true;
     }
 }
