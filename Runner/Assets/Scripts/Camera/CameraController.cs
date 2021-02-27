@@ -70,6 +70,16 @@ public class CameraController : MonoBehaviour
             {
                 Right_button.SetActive(true);
             }
+
+            var scrollDelta = Input.mouseScrollDelta.y;
+            if (scrollDelta > 0)
+            {
+                GoRight();
+            }
+            else if (scrollDelta < 0)
+            {
+                GoLeft();
+            }
         }
     }
 
