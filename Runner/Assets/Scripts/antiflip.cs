@@ -20,7 +20,8 @@ public class antiflip : MonoBehaviour
         {
             _spriteR.flipX = true;
         }
-        else {
+        else
+        {
             _spriteR.flipX = false;
         }
     }

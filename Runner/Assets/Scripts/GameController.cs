@@ -8,9 +8,7 @@ public class GameController : MonoBehaviour
 {
     private GameObject player;
     static public Vector3 playerStartPosition;
-    private GameObject playerStart;
     private GameObject mainCamera;
-    private GameObject background;
     private GameObject[] EditUI;
     public static bool editMode = false;
 
@@ -23,17 +21,19 @@ public class GameController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerStartPosition = player.transform.position;
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-        background = GameObject.FindGameObjectWithTag("Background");
         EditUI = GameObject.FindGameObjectsWithTag("EditUI");
         triggerButtons = GameObject.FindGameObjectsWithTag("TriggerButton");
-        ToogleEditing();
     }
 
-    public void ToogleEditing()
+    private void Start()
+    {
+        ToggleEditing();
+    }
+
+    public void ToggleEditing()
     {
         if (editMode)
         {
-            //background.GetComponent<SpriteRenderer>().material.SetFloat("Vector1_BD96FC95",0.2f);
             player.GetComponent<PlayerController>().reset();
             player.GetComponent<Rigidbody2D>().simulated = true;
             foreach (GameObject item in GameObject.FindGameObjectsWithTag("Trigger"))
@@ -56,7 +56,6 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            //background.GetComponent<SpriteRenderer>().material.SetFloat("Vector1_BD96FC95",0f);
             player.GetComponent<PlayerController>().reset();
             player.transform.position = playerStartPosition;
             player.GetComponent<Rigidbody2D>().simulated = false;
