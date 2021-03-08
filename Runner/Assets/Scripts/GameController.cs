@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     private GameObject player;
-    private Vector3 playerStartPosition;
+    static public Vector3 playerStartPosition;
     private GameObject playerStart;
     private GameObject mainCamera;
     private GameObject background;
@@ -52,7 +52,7 @@ public class GameController : MonoBehaviour
             mainCamera.transform.position = new Vector3(player.transform.position.x, player.transform.position.y * 2, mainCamera.transform.position.z);
             mainCamera.transform.SetParent(player.transform);
 
-            Instantiate(spawnPlayer);
+            Instantiate(spawnPlayer, new Vector3(player.transform.position.x - Screen.width / Screen.dpi, player.transform.position.y, player.transform.position.z), Quaternion.identity);
         }
         else
         {

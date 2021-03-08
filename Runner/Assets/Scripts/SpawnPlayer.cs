@@ -10,7 +10,6 @@ public class SpawnPlayer : MonoBehaviour
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        playerStartPosition = player.transform.position;
     }
 
     private void Start()
@@ -22,7 +21,7 @@ public class SpawnPlayer : MonoBehaviour
     private void Update()
     {        
         transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, transform.position.y, transform.position.z);
-        if (transform.position.x >= playerStartPosition.x)
+        if (transform.position.x >= GameController.playerStartPosition.x)
         {
             player.transform.SetParent(null);
         }

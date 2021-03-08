@@ -7145,7 +7145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05c9c41573dd81e4fa5419ce872d0847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  editMode: 0
+  spawnPlayer: {fileID: 0}
 --- !u!4 &1027442971
 Transform:
   m_ObjectHideFlags: 0
@@ -8919,7 +8919,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0
   far clip plane: 1000
   field of view: 60
   orthographic: 1
